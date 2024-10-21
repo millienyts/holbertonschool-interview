@@ -6,8 +6,7 @@ This script reads log entries from stdin line by line and computes metrics:
 - Total file size from all log entries
 - Count of HTTP status codes (200, 301, 400, 401, 403, 404, 405, 500)
 
-After every 10 lines of input or upon receiving a keyboard
-interrupt (Ctrl + C),
+After every 10 lines of input or upon receiving a keyboard interrupt (Ctrl + C),
 it prints the following statistics:
 - Total file size: the sum of all file sizes from the log entries
 - Number of lines per status code: only valid status codes are counted and
@@ -25,13 +24,11 @@ import sys
 
 def print_stats(file_size, status_counts):
     """
-    Prints the current statistics including total
-    file size and status code counts.
+    Prints the current statistics including total file size and status code counts.
 
     Args:
         file_size (int): The total size of all the files processed so far.
-        status_counts (dict): A dictionary with the count
-        of each valid status code.
+        status_counts (dict): A dictionary with the count of each valid status code.
     """
     print(f"File size: {file_size}")
     for code in sorted(status_counts):
@@ -39,8 +36,7 @@ def print_stats(file_size, status_counts):
             print(f"{code}: {status_counts[code]}")
 
 
-# Initialize variables to store total file size
-# and counts for each status code.
+# Initialize variables to store total file size and counts for each status code.
 file_size = 0
 status_counts = {200: 0, 301: 0, 400: 0,
                  401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
@@ -54,8 +50,7 @@ try:
         # Split the line into parts based on spaces
         parts = line.split()
 
-        # Ensure the line has the correct
-        # number of parts (>=7 for valid entries)
+        # Ensure the line has the correct number of parts (>=7 for valid entries)
         if len(parts) >= 7:
             try:
                 # Extract the file size and status code from the log entry
@@ -64,13 +59,11 @@ try:
                 # Status code is the second-to-last part
                 status_code = int(parts[-2])
 
-                # Update the count for the status code
-                # if it's one of the valid codes
+                # Update the count for the status code if it's one of the valid codes
                 if status_code in status_counts:
                     status_counts[status_code] += 1
             except ValueError:
-                # If there's an error (e.g., non-integer
-                # status code or file size),
+                # If there's an error (e.g., non-integer status code or file size),
                 # skip that line without raising an exception
                 pass
 
