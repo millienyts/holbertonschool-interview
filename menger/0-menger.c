@@ -1,33 +1,43 @@
+#include <stdio.h>
+#include <math.h>
 #include "menger.h"
-/**
- * menger - function that draws a 2D Menger Sponge
- * @level: level of the menger sponge to draw
- */
 
+/**
+ * draw - Determines if a character should be a # or a space.
+ * @row: Row index of the character.
+ * @col: Column index of the character.
+ *
+ * Return: '#' if the position is part of the Menger Sponge, ' ' otherwise.
+ */
+char draw(int row, int col)
+{
+	while (row > 0 || col > 0)
+	{
+		if (row % 3 == 1 && col % 3 == 1)
+			return (' ');
+		row /= 3;
+		col /= 3;
+	}
+	return ('#');
+}
+
+/**
+ * menger - Draws a 2D Menger Sponge of a given level.
+ * @level: Level of the Menger Sponge.
+ */
 void menger(int level)
 {
-    int n, m, j, x, y;
-    char s;
+	if (level < 0)
+	return;
 
-    m = pow(3, level);
-    for (n = 0; n < m; n++)
-    {
-        for (j = 0; j < m;)
-        {
-            s = '#';
-            x = n;
-            y = j++;
-            while (x > 0 || y > 0)
-            {
-                if (x % 3 == 1 && y % 3 == 1)
-                {
-                    s = ' ';
-                }
-                x /= 3;
-                y /= 3;
-            }
-            printf("%c", s);
-        }
-        printf("\n");
-    }
+	int size = pow(3, level);
+
+	for (int row = 0; row < size; row++)
+	{
+		for (int col = 0; col < size; col++)
+		{
+			putchar(draw(row, col));
+		}
+	putchar('\n');
+	}
 }
