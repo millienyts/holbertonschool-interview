@@ -1,6 +1,19 @@
 #include "binary_trees.h"
 
 /**
+ * binary_tree_size - Computes the size of the binary tree.
+ * @tree: Pointer to the root node of the tree.
+ *
+ * Return: Size of the tree (number of nodes).
+ */
+size_t binary_tree_size(const binary_tree_t *tree)
+{
+	if (!tree)
+		return (0);
+	return (1 + binary_tree_size(tree->left) + binary_tree_size(tree->right));
+}
+
+/**
  * swap - Swaps the values of two nodes.
  * @a: First node.
  * @b: Second node.
@@ -42,23 +55,27 @@ void heapify_down(heap_t *node)
  */
 heap_t *find_last_node(heap_t *root, int size)
 {
-	heap_t *queue[1024]; /* Assuming max nodes <= 1024 */
-	int front = 0, rear = 0, i;
+	heap_t **queue = malloc(sizeof(heap_t *) * size);
+	int front = 0, rear = 0;
+	heap_t *last = NULL;
+
+	if (!queue)
+		return (NULL);
 
 	queue[rear++] = root;
 
-	for (i = 0; i < size; i++)
+	while (front < rear)
 	{
-		heap_t *node = queue[front++];
+		last = queue[front++];
 
-		if (node->left)
-			queue[rear++] = node->left;
-
-		if (node->right)
-			queue[rear++] = node->right;
+		if (last->left)
+			queue[rear++] = last->left;
+		if (last->right)
+			queue[rear++] = last->right;
 	}
 
-	return (queue[front - 1]);
+	free(queue);
+	return (last);
 }
 
 /**
@@ -70,13 +87,19 @@ heap_t *find_last_node(heap_t *root, int size)
 int heap_extract(heap_t **root)
 {
 	int value;
+	size_t size;
 	heap_t *last;
 
 	if (!root || !*root)
 		return (0);
 
+	size = binary_tree_size(*root);
+	last = find_last_node(*root, size);
+
+	if (!last)
+		return (0);
+
 	value = (*root)->n;
-	last = find_last_node(*root, 1024); /* Placeholder for actual size function */
 
 	if (*root == last)
 	{
