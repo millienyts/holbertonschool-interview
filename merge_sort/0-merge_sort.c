@@ -9,16 +9,20 @@ void merge(int *array, int left, int mid, int right, int *temp)
     // Print the merging step
     printf("Merging...\n");
 
-    // Print the left array
+    // Print the left array without trailing comma
     printf("[left]: ");
-    for (int l = left; l <= mid; l++)
-        printf("%d, ", array[l]);
+    for (int l = left; l <= mid; l++) {
+        printf("%d", array[l]);
+        if (l < mid) printf(", ");
+    }
     printf("\n");
 
-    // Print the right array
+    // Print the right array without trailing comma
     printf("[right]: ");
-    for (int r = mid + 1; r <= right; r++)
-        printf("%d, ", array[r]);
+    for (int r = mid + 1; r <= right; r++) {
+        printf("%d", array[r]);
+        if (r < right) printf(", ");
+    }
     printf("\n");
 
     // Merge the two subarrays
@@ -42,10 +46,12 @@ void merge(int *array, int left, int mid, int right, int *temp)
     for (i = left; i <= right; i++)
         array[i] = temp[i];
 
-    // Print the merged array
+    // Print the merged array without trailing comma
     printf("[Done]: ");
-    for (int i = left; i <= right; i++)
-        printf("%d, ", array[i]);
+    for (int i = left; i <= right; i++) {
+        printf("%d", array[i]);
+        if (i < right) printf(", ");
+    }
     printf("\n");
 }
 
