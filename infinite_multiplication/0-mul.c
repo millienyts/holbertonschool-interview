@@ -25,11 +25,10 @@ int main(int argc, char *argv[])
 }
 
 /**
- * multiply - Fills an array with the multiplication num_1 times i
+ * multiply - Multiplies two numbers represented as strings
  * Arguments
- * @num_1: string representing the 1st number in 10 base
- * @num_2: string representing the 2nd number in 10 base
- * Returns: The multiplication
+ * @num_1: string representing the first number in base 10
+ * @num_2: string representing the second number in base 10
  */
 void multiply(char *num_1, char *num_2)
 {
@@ -44,7 +43,7 @@ void multiply(char *num_1, char *num_2)
         for (j = 0; j < MAX2; j++)
             answer[i][j] = '.';
 
-    /* 1. Creating multiplication table*/
+    /* 1. Creating multiplication table */
     for (tag = 0, i = 0; i < 10; i++)
     {
         for (j = 0; j <= len_1; j++)
@@ -65,7 +64,7 @@ void multiply(char *num_1, char *num_2)
         }
     }
 
-    /* 2. Creating answer table*/
+    /* 2. Creating answer table */
     for (j = 0; j < len_2; j++)
     {
         pos_2 = len_2 - j - 1;
@@ -77,15 +76,13 @@ void multiply(char *num_1, char *num_2)
 }
 
 /**
- * is_a_number - Indicates if a string represents a number in 10 base
+ * is_a_number - Indicates if a string represents a number in base 10
  * Arguments
- * @a_str: string representing a number in 10 base
- * Return: 1 if true, 0 if not.
+ * @a_str: string representing a number in base 10
+ * Return: 1 if true, 0 if not
  */
 int is_a_number(char *a_str)
 {
-    if (*a_str == '\0') 
-        return (_FALSE_);
     while (*a_str != '\0')
     {
         if (*a_str < '0' || *a_str > '9')
@@ -96,17 +93,16 @@ int is_a_number(char *a_str)
 }
 
 /**
- * sum_and_print - Generates the summation and prints the result
+ * sum_and_print - Adds the numbers in the multiplication table and prints the result
  * Arguments
- * @a: matrix with multiplication tables
- * @len_1: length of string 1
- * @len_2: length of string 2
- * Return: nothing.
+ * @a: matrix with multiplication results
+ * @len_1: length of the first number
+ * @len_2: length of the second number
  */
 void sum_and_print(char a[MAX1][MAX2], int len_1, int len_2)
 {
     int tag = 0, sum, value;
-    char total[MAX2], ans[MAX2 - 1], *ar;
+    char total[MAX2];
     int j = 0;
 
     // 3. Add each column from left to right
@@ -138,7 +134,7 @@ void sum_and_print(char a[MAX1][MAX2], int len_1, int len_2)
  * str_len - Calculates the length of a string
  * Arguments
  * @a: string to calculate the length of
- * Return: The length of the string.
+ * Return: the length of the string
  */
 int str_len(char *a)
 {
